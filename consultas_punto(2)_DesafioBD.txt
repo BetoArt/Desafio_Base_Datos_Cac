@@ -1,0 +1,52 @@
+********* DESAFIO BASE DE DATOS ************
+
+    (2.1) Obtener el apellido de los empleados
+            SELECT apellido FROM `empleados` 
+    
+    (2.2) Obtener los apellidos de los empleados sin repeticiones
+            SELECT DISTINCT (apellido) FROM `empleados`
+       
+    (2.3) Obtener los datos de los empleados que tengan apellido Lopez
+            SELECT * FROM `empleados` WHERE apellido = "Lopez"
+
+    (2.4) Obtener los datos de los empleados que tengan el apellido Lopez y los que tengan el apellido Perez
+            SELECT * FROM `empleados` WHERE apellido = "Lopez" OR apellido = "Perez";
+        
+    (2.5) Obtener todos los datos de los empleados que trabajen en el depto 14
+            SELECT * FROM empleados WHERE departamento_id = "14"
+
+    (2.6) Obtener todos los datos de los empleados que trabajen en el depto 37 y 77
+            SELECT * FROM empleados WHERE departamento_id = "37" OR departamento_id = "77"
+
+    (2.7) Obtener los datos de los empleados cuyo apellido comience con P
+            SELECT * FROM empleados WHERE apellido LIKE "P%"
+
+    (2.8) Obtener el presupuesto total de todos los departamentos
+            SELECT SUM(presupuesto) AS Presupuesto_total FROM departamentos
+
+    (2.9) Obtener un listado completo de empleados, incluyendo por cada empleado los datos del empleado y su departamento
+            SELECT id_empleados, dni, nombre, apellido, nombre_depto FROM empleados, departamentos WHERE departamento_id = id_depto;
+
+    (2.10) Obtener un listado completo de empleados, incluyendo el nombre y el apellido del empleado junto al nombre y presupuesto
+    del departamento
+            SELECT nombre, apellido, nombre_depto, presupuesto FROM empleados, departamentos WHERE departamento_id = id_depto;
+
+    (2.11) Obtener los nombres y apellidos de los empleados que trabajan en departamentos cuyo presupuesto sea mayor que 60000
+            SELECT nombre, apellido FROM empleados, departamentos WHERE departamento_id = id_depto AND (presupuesto > 60000);
+
+    (2.12) Añadir un nuevo departamento: calidad con un presupuesto de 40000 y codigo 11, añadir un empleado vinculado al 
+    departamento recién creado: Esther Vazquez, DNI 89267109
+        INSERT INTO `departamentos` (`nombre_depto`, `presupuesto`, `id_depto`) VALUES ('Calidad', '40000', '11');
+        INSERT INTO `empleados` (`id_empleados`, `dni`, `nombre`, `apellido`, `departamento_id`) VALUES (NULL, '89267109', 'Esther', 'Vazquez', '11')
+
+    (2.13) Aplicar un recorte presupuestario del 10% a todos los departamentos
+            SELECT nombre_depto, presupuesto - (presupuesto * 0.10) AS Nuevo_Presupuesto FROM departamentos
+
+    (2.14) Reasignar a los empleados del departamento de investigación (código 77) al departamento de informática (código 14)
+           UPDATE empleados SET departamento_id = 14 WHERE departamento_id = 77
+
+    (2.15) Despedir a los empleados del departamento de informática (código 14)
+            DELETE FROM empleados WHERE departamento_id = 14
+
+    (2.16) Despedir a los empleados que trabajen en departamentos con un presupuesto superior a 90000
+        DELETE empleados FROM empleados JOIN departamentos ON empleados.departamento_id =departamentos.id_depto WHERE departamentos.presupuesto > "90000"
